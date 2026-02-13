@@ -1,0 +1,22 @@
+artifact_path: file:C:/Users/dell/Desktop/complete_mlpipeline/End_to_end_ml.model/mlruns/1/models/m-904a840438af42f7a6876536ded91d8d/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.14.2
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.8.1
+model_id: m-904a840438af42f7a6876536ded91d8d
+model_size_bytes: 1386380
+model_uuid: m-904a840438af42f7a6876536ded91d8d
+prompts: null
+run_id: a70d231fb9a7457c8f3f7c6064331f01
+utc_time_created: '2026-02-13 07:04:07.294223'

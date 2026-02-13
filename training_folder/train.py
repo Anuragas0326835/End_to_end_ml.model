@@ -12,8 +12,10 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 
 # Configuration
-DATA_FILE = "gym_attendance.csv"
-MODEL_FILE = "gym_rf_model.pkl"
+DATA_FILE = "../gym_attendance.csv"
+MODEL_FILE = "../gym_rf_model.pkl"
+SCALER_FILE = "../scaler.pkl"
+ENCODERS_FILE = "../encoders.pkl"
 EXPERIMENT_NAME = "Gym_Attendance_Prediction"
 
 def generate_dummy_data(filename):
@@ -123,7 +125,7 @@ def preprocessing(df):
     numerical_cols = ['Sleep_Hours'] # Add others if available
     X[numerical_cols] = scaler.fit_transform(X[numerical_cols])
     
-    return X, y, scaler
+    return X, y, scaler, label_encoders
 
 def train_model():
     # 1. Load and Prepare
@@ -131,7 +133,7 @@ def train_model():
     df = data_cleaning(df)
     df = feature_engineering(df)
     perform_eda(df)
-    X, y, scaler = preprocessing(df)
+    X, y, scaler, encoders = preprocessing(df)
     
     # Split Data
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -180,8 +182,16 @@ def train_model():
         print(f"Saving model to {MODEL_FILE}...")
         with open(MODEL_FILE, 'wb') as f:
             pickle.dump(rf, f)
+
+        print(f"Saving scaler to {SCALER_FILE}...")
+        with open(SCALER_FILE, 'wb') as f:
+            pickle.dump(scaler, f)
+
+        print(f"Saving encoders to {ENCODERS_FILE}...")
+        with open(ENCODERS_FILE, 'wb') as f:
+            pickle.dump(encoders, f)
             
-        print("Training run complete.")
+        print("Training run and artifact saving complete.")
 
 if __name__ == "__main__":
     train_model()
